@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:include src="main.xhtml" />
+
+
+	<style>
+.hprov {
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2 !important;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+
+
+</style>
+
+</h:head>
+
+<h:body>
+
+
+	<p:growl id="messages" showDetail="true">
+		<p:autoUpdate />
+	</p:growl>
+
+
+	<h:form id="form1">
+
+
+		<p:spacer width="250px" height="150px" />
+		<p:panelGrid columns = "2" style="margin-left: 40%">
+		<p:outputLabel value="Portföy No:" />
+		<p:inputText value="#{havaleProvizyonBean.selectedPortfoyNo}"
+			required="true" maxlength="15" >
+		
+		<p:commandButton icon="pi pi-search" class="golden-btn"
+			actionListener="#{havaleProvizyonBean.TabloFiltre()}" />
+			</p:inputText>
+		<p:outputLabel value="Tarih:" />
+		<p:column>
+		
+			<p:datePicker id="date" value="#{havaleProvizyonBean.tarih}"
+				monthNavigator="true" disabled="true" pattern="dd.MM.yyyy" />
+			<p:spacer width="20px" />
+		</p:column>
+
+		<p:outputLabel value="İşlem Tutarı:" />
+
+		<p:column>
+			<p:inputNumber id="tutar" value="#{havaleProvizyonBean.islemTutari}"
+				symbol=" ₺" symbolPosition="s" decimalSeparator=","
+				disabled="#{havaleProvizyonBean.disable}" thousandSeparator="."
+				minValue="0" />
+		</p:column>
+		<p:outputLabel value="İşlem Tipi:" />
+		<p:column>
+		
+			<p:selectOneMenu styleClass="MenuGel" id="option"
+				value="#{havaleProvizyonBean.islemTipi}"
+				disabled="#{havaleProvizyonBean.disable}">
+				<f:selectItem itemLabel="" itemValue="" />
+				<f:selectItem itemLabel="Havale" itemValue="Havale" />
+				<f:selectItem itemLabel="Provizyon" itemValue="Provizyon" />
+				<f:facet name="footer">
+				</f:facet>
+				
+			</p:selectOneMenu>
+		</p:column>	
+			<p:outputLabel value="Müşteri Bakiyesi:" />
+			<p:column>
+				<p:inputNumber id="bakiye"
+					value="#{havaleProvizyonBean.musteri_portfoyNo.bakiye}" symbol=" ₺"
+					symbolPosition="s" decimalSeparator="," thousandSeparator="."
+					disabled="true" />
+			
+
+		</p:column>
+		</p:panelGrid>
+		<p:spacer width="20px" />
+		<p:column>
+			
+			<p:commandButton id="ourButton" value="Yeni" icon="pi pi-plus"
+				disabled="#{havaleProvizyonBean.disable}"
+				oncomplete="PF('addHprovDialog').show()" class="golden-btn"
+				style="margin-left:48% ; margin-top:10px" />
+		</p:column>
+
+	</h:form>
+	<h:form id="form2">
+		<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+			<p:column>
+				<p:dataTable id="table" widgetVar="dtHprov"
+					selection="#{havaleProvizyonBean.selectedHProv}"
+					var="havaleProvizyonBean" value="#{havaleProvizyonBean.hProvList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="10" styleClass="mt-2"
+					rowKey="#{havaleProvizyonBean.havaleProvizyonId}"
+					emptyMessage="Bir Kayıt Bulunamadı.">
+
+					<f:facet name="header">
+					
+						<div class="products-table-header">
+
+							 <span style="font-weight: bold">Havale-Provizyon Listesi</span> 
+							<p:commandButton
+									class="golden-btn"
+									style="margin-left:70%" value="Sil" icon="pi pi-trash"
+									oncomplete="PF('deleteHprovDialog').show()">
+								</p:commandButton>	
+							
+						</div>
+					</f:facet>
+					<p:column selectionMode="single"
+						style="width:16px;text-align:center ;background : #484849 !important" />
+					<p:column headerText="Portföy No"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.musteri_portfoyNo.portfoyNo}"
+						filterBy="#{havaleProvizyonBean.musteri_portfoyNo.portfoyNo}"
+						styleClass="modeColumnFilter">
+						<h:outputText
+							value="#{havaleProvizyonBean.musteri_portfoyNo.portfoyNo}" />
+					</p:column>
+
+					<p:column headerText="İşlem Tarihi"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.tarih}">
+
+						<h:outputText value="#{havaleProvizyonBean.tarih}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="İşlem Tipi"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.islemTipi}">
+
+						<h:outputText value="#{havaleProvizyonBean.islemTipi}" />
+					</p:column>
+
+					<p:column headerText="İşlem Tutarı"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.islemTutari}">
+						<h:outputText value="#{havaleProvizyonBean.islemTutari}" />
+					</p:column>
+
+
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+	</h:form>
+
+	<p:confirmDialog showEffect="slide" hideEffect="explode"
+		widgetVar="deleteHprovDialog" width="300"
+		message="Seçili İşlemi İptal Et?" header="Onayla" severity="warn">
+		<p:commandButton value="Evet" icon="pi pi-check"
+			actionListener="#{havaleProvizyonBean.deleteHavaleProvizyon()}"
+			oncomplete="PF('deleteHprovDialog').hide()" styleClass="onay" />
+		<p:commandButton value="Hayır" type="button" styleClass="red"
+			icon="pi pi-times" onclick="PF('deleteHprovDialog').hide()" />
+	</p:confirmDialog>
+
+	<p:confirmDialog showEffect="slide" hideEffect="explode"
+		widgetVar="addHprovDialog" width="300" message="İşlemi Onayla?"
+		header="Onayla" severity="warn">
+		<p:commandButton value="Evet" icon="pi pi-check"
+			actionListener="#{havaleProvizyonBean.saveHavaleProvizyon()}"
+			oncomplete="PF('addHprovDialog').hide()" styleClass="onay" />
+		<p:commandButton value="Hayır" type="button" styleClass="red"
+			icon="pi pi-times" onclick="PF('addHprovDialog').hide()" />
+	</p:confirmDialog>
+
+</h:body>
+</html>

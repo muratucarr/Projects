@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<ui:include src="main.xhtml" />
+
+
+	<style>
+	.pliste{
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+</style>
+</h:head>
+<h:body>
+<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 10%">
+
+			<p:column>
+				<p:dataTable id="table" var="personelListBean"
+					value="#{personelListBean.personelList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="5" styleClass="mt-2">
+					
+					<p:column style="background : #484849 !important" sortBy="#{personelListBean.ad}">
+						<f:facet name="header">
+							<h:outputText value="Ad" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.ad}"  />
+					</p:column>
+
+					<p:column styleClass="text-center"
+						style="background : #484849 !important" sortBy="#{personelListBean.soyad}">
+						<f:facet name="header">
+							<h:outputText value="Soyad" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.soyad}" />
+					</p:column>
+
+					<p:column styleClass="text-right"
+						style="background : #484849 !important" sortBy="#{personelListBean.kullaniciAdi}">
+						<f:facet name="header">
+							<h:outputText value="Kullanıcı Adı" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.kullaniciAdi}" />
+					</p:column>
+
+					<p:column styleClass="text-right"
+						style="background : #484849 !important" sortBy="#{personelListBean.sifre}">
+						<f:facet name="header">
+							<h:outputText value="Şifre" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.sifre}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+
+</h:body>
+
+</html>

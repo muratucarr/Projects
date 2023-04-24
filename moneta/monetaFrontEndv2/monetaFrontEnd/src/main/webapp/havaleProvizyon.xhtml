@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<ui:include src="main.xhtml" />
+
+
+<style>
+.hprov{
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2 !important;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+
+</style>
+	
+</h:head>
+
+<h:body>
+
+	<p:spacer width="250px" height="150px" />
+
+
+
+
+	<p:inputText value="#{loginPage.password}" required="true"
+				maxlength="15" placeholder="Portföy No" class="txt-dark"/>
+	<p:spacer width="20px"/>
+	<p:column>
+		<p:inputText id="time" value="#{calendarView.date}"
+			disabled="true" class="txt-dark" />
+			<p:spacer width="20px"/>
+	</p:column>
+	
+	<p:column>
+		<p:datePicker id="input2" type="decimal" value="" symbol="TRY"
+                symbolPosition="s" decimalSeparator="," thousandSeparator="." class= "txt-dark"/>
+	</p:column>
+	<p:column>
+		<p:inputText id="tutar"  value="#{inputNumberView.input2}" symbol="TRY"
+                symbolPosition="s" decimalSeparator="," thousandSeparator="." class= "txt-dark"/>
+	</p:column>
+
+
+	<h:form>
+		<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+			<p:column>
+				<p:dataTable id="table" var="personelListBean"
+					value="#{personelListBean.personelList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="5" styleClass="mt-2">
+					<p:column style="background : #484849 !important">
+						<f:facet name="header">
+							<h:outputText value="Portföy No" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.ad}" />
+					</p:column>
+
+					<p:column styleClass="text-center"
+						style="background : #484849 !important">
+						<f:facet name="header">
+							<h:outputText value="İşlem Tarihi" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.soyad}" />
+					</p:column>
+
+					<p:column styleClass="text-right"
+						style="background : #484849 !important">
+						<f:facet name="header">
+							<h:outputText value="İşlem Tipi" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.kullaniciAdi}" />
+					</p:column>
+
+					<p:column styleClass="text-right"
+						style="background : #484849 !important">
+						<f:facet name="header">
+							<h:outputText value="Tutar" />
+						</f:facet>
+						<h:outputText value="#{personelListBean.sifre}">
+							<f:convertNumber type="currency" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+	</h:form>
+
+
+</h:body>
+</html>

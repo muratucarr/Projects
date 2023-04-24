@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<ui:include src="main.xhtml" />
+
+	<style>
+	.fonfiyat{
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+</style>
+</h:head>
+<h:body>
+
+	
+
+	<p:spacer width="250px" height="150px" />
+
+
+	<h:form id="form">
+		<p:growl id="messages" showDetail="true" />	
+			
+		<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+			
+			<p:column>
+				<p:dataTable id="table" widgetVar = "dtFonFiyatlar" var="fonFiyatBean"
+					selection="#{fonFiyatBean.selectedFonFiyatForDeletion}" 
+					value="#{fonFiyatBean.fonFiyatList}" rowKey="#{fonFiyatBean.fonFiyatId}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="10" styleClass="mt-2">
+					
+					<f:facet name="header">
+                		<div class="products-table-header">
+                    		<span style="font-weight: bold">Fon Fiyat Listesi</span>
+                    		<span>
+                    			<p:commandButton value="Fon Fiyat Ekle" icon="pi pi-plus" actionListener="#{fonFiyatBean.openNew}"
+                    				update=":dialogs:manage-product-content" oncomplete="PF('manageProductDialog').show()"
+                    				styleClass="ui-button-success" style="margin-right: .5rem">
+                    				<p:resetInput target=":dialogs:manage-product-content" />
+                				</p:commandButton>
+                    		</span>
+                    		<span>
+                    			<p:commandButton value="Fon Fiyat Sil" class="ui-button-warning rounded-button" icon="pi pi-trash"
+                    					oncomplete="PF('deleteProductDialog').show()">
+                				</p:commandButton>
+                    		</span>
+                    		 <span style = "margin-left: 70%" class="filter-container ui-input-icon-left">
+                    		 	 <i class="pi pi-search"></i> 
+                    		 	 <p:inputText id="globalFilter" onkeyup="PF('dtFonFiyatlar').filter()" placeholder="Fon Ara" />
+                   			 </span>
+
+                		</div>
+            		</f:facet>
+            		
+            		<p:column selectionMode="single" style="width:16px;text-align:center"/>
+            		
+					<p:column headerText = "Tarih" style="background : #484849 !important" 
+						sortBy="#{fonFiyatBean.tarih}"  filterBy="#{fonFiyatBean.tarih}" styleClass="modeColumnFilter">
+						<h:outputText value="#{fonFiyatBean.tarih}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>	
+					</p:column>
+					
+					<p:column headerText = "Fon Kodu" style="background : #484849 !important"  styleClass="modeColumnFilter" 
+						sortBy="#{fonFiyatBean.fon_FonKodu.fonKodu}"  filterBy="#{fonFiyatBean.fon_FonKodu.fonKodu}">
+						<h:outputText value="#{fonFiyatBean.fon_FonKodu.fonKodu}" />
+					</p:column>
+					
+
+					<p:column headerText = "Fon Adı" styleClass="modeColumnFilter"
+						sortBy="#{fonFiyatBean.fon_FonKodu.fonAdi}"  filterBy="#{fonFiyatBean.fon_FonKodu.fonAdi}"
+						style="background : #484849 !important">
+						
+						<h:outputText value="#{fonFiyatBean.fon_FonKodu.fonAdi}" />
+					</p:column>
+
+					<p:column headerText = "ISIN Kodu" styleClass="modeColumnFilter"
+						sortBy="#{fonFiyatBean.fon_FonKodu.isinKodu}"  filterBy="#{fonFiyatBean.fon_FonKodu.isinKodu}"
+						style="background : #484849 !important">
+					
+						<h:outputText value="#{fonFiyatBean.fon_FonKodu.isinKodu}" />
+					</p:column>
+					
+					<p:column headerText = "Fiyat" styleClass="modeColumnFilter"
+						sortBy="#{fonFiyatBean.fiyat}"  filterBy="#{fonFiyatBean.fiyat}"
+						style="background : #484849 !important">
+					
+						<h:outputText value="#{fonFiyatBean.fiyat}" />
+					</p:column>
+					
+
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+		
+		
+		
+	</h:form>
+	
+	<h:form id="dialogs">
+        <p:dialog header="Fon Fiyat Ekleme" showEffect="fade" modal="true" widgetVar="manageProductDialog"
+            responsive="true">
+            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty fonFiyatBean.selectedFonFiyat}">
+                 
+                    <div class="field">
+                        <p:outputLabel for="tarih">Tarih</p:outputLabel>
+                        <p:datePicker id="tarih" value="#{fonFiyatBean.selectedFonFiyat.tarih}" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="fon_kodu">Fon Kodu</p:outputLabel>
+                        <p:inputTextarea id="fon_kodu" value="#{fonFiyatBean.selectedFonFiyat.fon_FonKodu.fonKodu}" />
+                    </div>
+                     <div class="field">
+                        <p:outputLabel for="fiyat">Fiyat</p:outputLabel>
+                        <p:inputTextarea id="fiyat" value="#{fonFiyatBean.selectedFonFiyat.fiyat}" />
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{fonFiyatBean.saveFonFiyat}"
+                    update="manage-product-content" process="manage-product-content @this" />
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                    class="ui-button-secondary" type="button" />
+            </f:facet>
+        </p:dialog>
+        </h:form>
+        
+        <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+            message="Fon Fiyat Silinsin Mi?" header="Confirm" severity="warn">
+            <p:commandButton value="Evet" icon="pi pi-check" actionListener="#{fonFiyatBean.deleteFonFiyat}"
+                 oncomplete="PF('deleteProductDialog').hide()" />
+            <p:commandButton value="Hayır" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                onclick="PF('deleteProductDialog').hide()" />
+        </p:confirmDialog>
+	
+
+	
+
+</h:body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+
+
+</h:head> 
+<div class="card">
+
+    <h:form>
+        <p:messages id="messages" showDetail="true" closable="true">
+            <p:autoUpdate/>
+        </p:messages>
+
+        <h5 class="mt-0">Severities</h5>
+<p:commandButton value="Warn" action="#{personelListBean.LoginPage()}" styleClass="mr-2 ui-button-warning" />
+    </h:form>
+</div>
+
+<h:form>
+				<p:inputText id="user" value = "#{personelListBean.kullaniciAdi}"
+							toggleMask="true" redisplay="true" placeholder="Kullanıcı Adı"
+								class="txt-dark" required = "true"></p:inputText>
+								 <p:message for="user" display="text" />
+
+			<p:password id="toggle" value = "#{personelListBean.sifre}"
+							toggleMask="true" redisplay="true" placeholder="Şifre"
+								class="txt-dark" />
+								 <p:message for="toggle" errorClass="errorMessage" />
+								 <p:commandButton class="btn-dark"  value="G İ R İ Ş"
+							action="#{personelListBean.LoginPage()}" />
+								 <p:messages styleClass="errorMessage" globalOnly="true" />
+								</h:form>
+								
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:include src="main.xhtml" />
+
+	<style>
+.mtanimi {
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+</style>
+</h:head>
+<h:body>
+	<h:form>
+		<p:spacer width="250px" height="150px" />
+
+		<p:accordionPanel style= "margin-left: 300px ; margin-right: 100px ">
+
+			<p:tab title="Yeni Müşteri Kaydı">
+				<h:panelGrid columns="3" cellpadding="7" styleClass="mb-3">
+					<p:outputLabel for="portföyNo" value="Portföy No:" />
+					<p:inputText id="portföyNo" value="#{musteriListBean.portfoyNo}"
+				 	maxlength="15" emptyValue="empty" label="Porftöy No">
+						<f:validateLength minimum="1" />
+					</p:inputText>
+					<!-- BURADAKİ MESAJLAR KULLANILABİLİR  p:message for="firstname" display="icon" /  -->
+
+					<p:outputLabel for="tcNo" value="Müşteri TC Numarası:" />
+					<p:inputText id="tcNo" value="#{musteriListBean.tcNo}"
+					maxlength="11" label="Müşteri TC Numarası">
+						<f:validateLength minimum="11" />
+						<!-- p:ajax update="msgLastname" event="keyup" /-->
+					</p:inputText>
+					
+					<p:outputLabel for="tcNo" value="Müşteri TC Numarası:" />
+					<p:inputText id="lastname" value="#{musteriListBean.ad}" required="true"
+					maxlength="100" label="Ad" >
+						<f:validateLength minimum="11" />
+					</p:inputText>
+					
+				</h:panelGrid>	
+				<p:commandButton value="Yeni Oluştur" icon="pi pi-plus"
+				actionListener="#{musteriListBean.saveMusteri}"
+				oncomplete="PF('manageProductDialog').show()"
+				styleClass="ui-button-success" style="margin-right: .5rem" />
+			</p:tab>
+		</p:accordionPanel>
+		
+
+		<p:inputText value="#{musteriListBean.ad}" required="true"
+			maxlength="100" placeholder="Ad" />
+		<p:spacer width="20px" />
+		<p:column>
+			<p:inputText value="#{musteriListBean.soyad}" required="true"
+				maxlength="100" placeholder="Soyad" />
+			<p:spacer width="20px" />
+		</p:column>
+
+
+		<p:column>
+			<p:selectOneMenu styleClass="MenuGel" id="option"
+				value="#{musteriListBean.yerlesimBelgesi}">
+				<f:selectItem itemLabel="Yerleşim Belgesi" itemValue="" />
+				<f:selectItem itemLabel="Var" itemValue="Var" />
+				<f:selectItem itemLabel="Yok" itemValue="Yok" />
+				<f:facet name="footer">
+				</f:facet>
+
+			</p:selectOneMenu>
+
+		</p:column>
+		<p:spacer width="20px" />
+		<p:column>
+			<p:commandButton value="Yeni Oluştur" icon="pi pi-plus"
+				actionListener="#{musteriListBean.saveMusteri}"
+				oncomplete="PF('manageProductDialog').show()"
+				styleClass="ui-button-success" style="margin-right: .5rem" />
+		</p:column>
+
+
+	</h:form>
+	<p:panelGrid columns="1"
+		style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+		<p:column>
+			<p:dataTable id="table" widgetVar="dtMlist" var="musteriListBean"
+				value="#{musteriListBean.musteriList}"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginator="true" rows="10" styleClass="mt-2"
+				rowKey="#{musteriListBean.portfoyNo}"
+				emptyMessage="Bir Kayıt Bulunamadı.">
+
+				<f:facet name="header">
+					<div class="products-table-header">
+						<span style="font-weight: bold">Fon Listesi</span> <span
+							style="margin-left: 70%"
+							class="filter-container ui-input-icon-left"> <i
+							class="pi pi-search"></i> <p:inputText id="globalFilter"
+								onkeyup="PF('dtMlist').filter()" placeholder="Portföy No" />
+						</span>
+					</div>
+				</f:facet>
+				<p:column headerText="Portföy No"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.portfoyNo}"
+					filterBy="#{musteriListBean.portfoyNo}"
+					styleClass="modeColumnFilter">
+					<h:outputText value="#{musteriListBean.portfoyNo}" />
+				</p:column>
+
+				<p:column headerText="Müşteri Adı"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.ad}">
+
+					<h:outputText value="#{musteriListBean.ad}" />
+				</p:column>
+
+				<p:column headerText="Müşteri Soyadı"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.soyad}">
+
+					<h:outputText value="#{musteriListBean.soyad}" />
+				</p:column>
+
+				<p:column headerText="Müşteri TC Numarası"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.tcNo}">
+					<h:outputText value="#{musteriListBean.tcNo}" />
+				</p:column>
+
+				<p:column headerText="Yerleşim Belgesi"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.yerlesimBelgesi}">
+					<h:outputText value="#{musteriListBean.yerlesimBelgesi}" />
+				</p:column>
+
+				<p:column headerText="Müşteri Bakiyesi"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.bakiye}">
+					<h:outputText value="#{musteriListBean.bakiye}" />
+				</p:column>
+
+			</p:dataTable>
+		</p:column>
+	</p:panelGrid>
+</h:body>
+</html>

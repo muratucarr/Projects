@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<ui:include src="main.xhtml" />
+
+	<style>
+	.ftanim{
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2 !important;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+</style>
+</h:head>
+<h:body>
+
+	<p:spacer width="250px" height="150px" />
+
+	<h:form>
+		<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+			<p:column>
+				<p:dataTable id="table" var="fon"
+					value="#{FonTanimiBean.fonList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="10" styleClass="mt-2">
+					<p:column style="background : #484849 !important">
+						<f:facet name="header">
+							<h:outputText value="Fon Kodu" />
+						</f:facet>
+						<h:outputText value="#{FonTanimiBean.fonKodu}" />
+					</p:column>
+
+					<p:column styleClass="text-center"
+						style="background : #484849 !important">
+						<f:facet name="header">
+							<h:outputText value="Fon Adı" />
+						</f:facet>
+						<h:outputText value="#{FonTanimiBean.fonAdi}" />
+					</p:column>
+
+					<p:column styleClass="text-right"
+						style="background : #484849 !important">
+						<f:facet name="header">
+							<h:outputText value="ISIN Kodu" />
+						</f:facet>
+						<h:outputText value="#{FonTanimiBean.ISINKodu}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+	</h:form>
+
+
+</h:body>
+</html>

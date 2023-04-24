@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:include src="main.xhtml" />
+	<style>
+.alimsatim {
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+</style>
+</h:head>
+<h:body style="background-color:gray;">
+
+	
+		<h:form id = "form1">
+		
+			<p:growl id="messages" showDetail="true" />	
+			
+			<p:panelGrid columns="1"
+				style="margin-left : 250px ; margin-top : 10%; margin-right: 100px">
+
+				<p:column>
+
+					<p:dataTable id="table1" var="fonAlimSatimBean" widgetVar="dtAlimSatimlar"
+						value="#{fonAlimSatimBean.alimSatimList}" rowKey="#{fonAlimSatimBean.alimSatimId}"
+						paginatorTemplate="{CurrentPageReport} {}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginator="true" rows="5" styleClass="mt-2">
+
+						<f:facet name="header">
+							<div class="products-table-header">
+								
+								<p:outputLabel	for="portfoy_no" value="Portföy No:" />
+								<p:inputText id="portfoy_no" value="#{fonAlimSatimBean.selectedPortfoyNo}" placeholder = "Portföy No" style="margin-left: 15px"/>
+								
+								<p:commandButton icon="pi pi-search" style="margin-left:10px" styleClass="golden-btn" 
+									actionListener="#{fonAlimSatimBean.getTablolar}" />
+								<p:spacer width="30%"/>
+								<span class="ui-input-icon-left">
+									 <p:outputLabel	for="bakiye" value="Bakiye:" /> 
+									 <p:inputNumber id="bakiye" value="#{fonAlimSatimBean.selectedBakiye}" placeholder="Bakiye  " 
+									 	disabled = "true"	style="margin-left: 15px" symbol=" ₺" symbolPosition="s" decimalSeparator=","
+										 thousandSeparator="."/>
+								</span>
+							</div>
+	
+						</f:facet>
+						
+            		
+						<p:column headerText = "Fon Adı" style="background : #484849 !important ; width: 450px" 
+							sortBy="#{fonAlimSatimBean.fon_fonKodu.fonAdi}"  filterBy="#{fonAlimSatimBean.fon_fonKodu.fonAdi}" styleClass="modeColumnFilter">
+							<h:outputText value="#{fonAlimSatimBean.fon_fonKodu.fonAdi}" />
+						</p:column>
+					
+						<p:column headerText = "Fon Kodu" style="background : #484849 !important"  styleClass="modeColumnFilter" 
+							sortBy="#{fonAlimSatimBean.fon_fonKodu.fonKodu}"  filterBy="#{fonAlimSatimBean.fon_fonKodu.fonKodu}">
+							<h:outputText value="#{fonAlimSatimBean.fon_fonKodu.fonKodu}" />
+						</p:column>
+						
+						<p:column headerText = "Stok(Adet)" styleClass="modeColumnFilter"
+							sortBy="#{fonAlimSatimBean.stok}"  filterBy="#{fonAlimSatimBean.stok}" 
+							style="background : #484849 !important">
+							<h:outputText value="#{fonAlimSatimBean.stok}" />
+						</p:column>
+
+						
+					</p:dataTable>
+				</p:column>
+				<p:column>
+
+					<span style="margin-left: 35%;">
+						 <p:commandButton value="Fon Al" icon="pi pi-plus" actionListener="#{fonAlimSatimBean.openNew}"
+                    				update=":dialogs:manage-product-content" oncomplete="PF('manageProductDialog').show()"
+                    				styleClass="golden-btn" style="margin-right: .5rem">
+                    				<p:resetInput target=":dialogs:manage-product-content" />
+                				</p:commandButton>
+					</span>
+
+					<span style="margin-left: 30px;"> 
+					
+						<p:commandButton value="Fon Sat" icon="pi pi-times" actionListener="#{fonAlimSatimBean.openNew}"
+                    				update=":dialogs:sell-product-content" oncomplete="PF('sellProductDialog').show()"
+                    				styleClass="golden-btn" style="margin-right: .5rem">
+                    				<p:resetInput target=":dialogs:sell-product-content" />
+                				</p:commandButton>
+					</span>
+
+				</p:column>
+				<p:column>
+
+
+
+				</p:column>
+			</p:panelGrid>
+		</h:form>
+
+
+		<h:form id="form2">
+		
+			<p:growl id="messages2" showDetail="true" />	
+			<p:panelGrid columns="1"
+				style="margin-left : 250px ; margin-right: 100px; margin-top : 5%">
+
+				<p:column>
+					<p:dataTable id="table2" var="fonAlimSatimBean" widgetVar = "dtGecmisIslemler"
+						selection="#{fonAlimSatimBean.selectedFonAlimSatimForDeletion}" 
+						value="#{fonAlimSatimBean.gecmisIslemlerList}" rowKey="#{fonAlimSatimBean.alimSatimId}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginator="true" rows="5" styleClass="mt-2">
+						
+						<p:column  selectionMode="single" style="width:16px;text-align:center ; background : #484849 !important"/>
+									
+						<p:column headerText = "Tarih" style="background : #484849 !important" 
+						sortBy="#{fonAlimSatimBean.islemTarihi}"  filterBy="#{fonAlimSatimBean.islemTarihi}" styleClass="modeColumnFilter">
+						<h:outputText value="#{fonAlimSatimBean.islemTarihi}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>	
+					</p:column>
+					
+					<p:column headerText = "Fon Adı" style="background : #484849 !important" 
+							sortBy="#{fonAlimSatimBean.fon_fonKodu.fonAdi}"  filterBy="#{fonAlimSatimBean.fon_fonKodu.fonAdi}" styleClass="modeColumnFilter">
+							<h:outputText value="#{fonAlimSatimBean.fon_fonKodu.fonAdi}" />
+					</p:column>
+					
+
+					<p:column headerText = "Adet" styleClass="modeColumnFilter"
+							sortBy="#{fonAlimSatimBean.stok}"  filterBy="#{fonAlimSatimBean.stok}" 
+							style="background : #484849 !important">
+							<h:outputText value="#{fonAlimSatimBean.stok}" />
+					</p:column>
+					
+					<p:column headerText = "İşlem Tipi" styleClass="modeColumnFilter"
+							sortBy="#{fonAlimSatimBean.islemTipi}"  filterBy="#{fonAlimSatimBean.islemTipi}" 
+							style="background : #484849 !important">
+							<h:outputText value="#{fonAlimSatimBean.islemTipi}" />
+					</p:column>
+
+					</p:dataTable>
+				</p:column>
+				<p:column>
+					<span style="margin-left: 42%;">
+					
+							<p:commandButton value="İşlem Sil" class="golden-btn" icon="pi pi-trash"
+                    					oncomplete="PF('deleteProductDialog').show()" >
+                			</p:commandButton>
+					</span>
+
+				</p:column>
+			</p:panelGrid>
+		</h:form>
+
+	
+	<h:form id="dialogs">
+        <p:dialog header="Fon Al" showEffect="slide" hideEffect="explode" modal="true" widgetVar="manageProductDialog"
+            responsive="true" >
+            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty fonAlimSatimBean.selectedFonAlimSatim}">
+                 
+                    <div class="field">
+                        <p:outputLabel for="fon_kodu_al">Fon Kodu</p:outputLabel>
+                        <p:inputText id="fon_kodu_al" value="#{fonAlimSatimBean.selectedFonAlimSatim.fon_fonKodu.fonKodu}"
+                        			disabled = "#{fonAlimSatimBean.disableInput}" />
+                        <p:commandButton value="Fiyat Al" icon="pi pi-check" actionListener="#{fonAlimSatimBean.calculateFiyatForAlim}"
+                    		update="manage-product-content" process="manage-product-content @this" class="golden-btn"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="miktar_al">Miktar(Adet)</p:outputLabel>
+                        <p:inputText id="miktar_al" value="#{fonAlimSatimBean.selectedFonAlimSatim.miktar}" />
+                    </div>
+                     <div class="field">
+                        <p:outputLabel for="fiyat_al">Fiyat(Birim)</p:outputLabel>
+                        <p:inputNumber id="fiyat_al" value="#{fonAlimSatimBean.selectedFonAlimSatim.fiyat}" 
+                        	symbol=" ₺" symbolPosition="s" decimalSeparator=","
+						thousandSeparator="." disabled = "true"/>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton id="kaydet1" value="Kaydet" icon="pi pi-check" actionListener="#{fonAlimSatimBean.saveFonAlimSatim}"
+                    update="manage-product-content @this" process="manage-product-content @this" styleClass="golden-btn"
+                     disabled = "#{fonAlimSatimBean.disable}"/>
+                <p:commandButton id="iptal1" value="İptal" icon="pi pi-times" actionListener="#{fonAlimSatimBean.iptalAlimSatimAl}"
+                    update="manage-product-content kaydet1" process="manage-product-content @this" styleClass="golden-btn"/>
+            </f:facet>
+        </p:dialog>
+        
+        
+        
+        
+        <p:dialog header="Fon Sat" showEffect="slide" hideEffect="explode" modal="true" widgetVar="sellProductDialog"
+            responsive="true">
+            <p:outputPanel id="sell-product-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty fonAlimSatimBean.selectedFonAlimSatim}">
+                 
+                    <div class="field">
+                        <p:outputLabel for="fon_kodu_sat">Fon Kodu</p:outputLabel>
+                        <p:inputText id="fon_kodu_sat" value="#{fonAlimSatimBean.selectedFonAlimSatim.fon_fonKodu.fonKodu}" 
+                        	disabled = "#{fonAlimSatimBean.disableInput}"/>
+                        <p:commandButton value="Fiyat Al" icon="pi pi-check" actionListener="#{fonAlimSatimBean.calculateFiyatForSatim}"
+                    		update="sell-product-content" process="sell-product-content @this" class="golden-btn"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="miktar_sat">Miktar(Adet)</p:outputLabel>
+                        <p:inputText id="miktar_sat" value="#{fonAlimSatimBean.selectedFonAlimSatim.miktar}" />
+                    </div>
+                     <div class="field">
+                        <p:outputLabel for="fiyat_sat">Fiyat(Birim)</p:outputLabel>
+                        <p:inputNumber id="fiyat_sat" value="#{fonAlimSatimBean.selectedFonAlimSatim.fiyat}" 
+                        	symbol=" ₺" symbolPosition="s" decimalSeparator=","
+						thousandSeparator="." disabled = "true"/>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton id = "kaydet2" value="Kaydet" icon="pi pi-check" actionListener="#{fonAlimSatimBean.sellFonAlimSatim}"
+                    update="sell-product-content @this" process="sell-product-content @this" 
+                   disabled = "#{fonAlimSatimBean.disable}" styleClass="golden-btn"/>
+                <p:commandButton id = "iptal2" value="İptal" icon="pi pi-times" actionListener="#{fonAlimSatimBean.iptalAlimSatimSat}"
+                update="sell-product-content kaydet2" process="sell-product-content @this" styleClass="golden-btn" />
+            </f:facet>
+        </p:dialog>
+        </h:form>
+        
+         <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+            message="İşlem Silinsin Mi?" header="Confirm" severity="warn">
+            <p:commandButton value="Evet" icon="pi pi-check" actionListener="#{fonAlimSatimBean.deleteFonAlimSatim}"
+                 oncomplete="PF('deleteProductDialog').hide()" styleClass="onay"/>
+            <p:commandButton value="Hayır" type="button" styleClass="red" icon="pi pi-times"
+                onclick="PF('deleteProductDialog').hide()" />
+        </p:confirmDialog>
+
+
+</h:body>
+</html>

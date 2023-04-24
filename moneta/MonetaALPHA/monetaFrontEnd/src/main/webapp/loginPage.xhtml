@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" lang="tr">
+<ui:define name="title"> Giriş Sayfası </ui:define>
+
+<h:head>
+
+	<style>
+	
+	
+::-webkit-input-placeholder {
+	color: #747472 !important;
+}
+
+:-moz-placeholder {
+	color: #747472 !important;
+}
+
+::-moz-placeholder {
+	color: #747472 !important;
+}
+
+:-ms-input-placeholder {
+	color: #747472 !important;
+}
+	
+	
+.txt-dark.ui-inputfield {
+	font-family: Impact, sans-serif !important;
+	outline: 0;
+	background: #cac8c8 !important;
+	width: 450px !important;
+	border: 0 !important;
+	padding: 20px !important;
+	box-sizing: border-box !important;
+	font-size: 20px !important;
+	color: black !important;
+}
+
+.btn-dark.ui-button {
+	font-family: Impact, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #000000;
+	width: 100%;
+	border: 0;
+	border-radius: 3px;
+	padding: 16px;
+	color: #FFFFFF;
+	font-size: 26px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+
+.btn-dark:hover:enabled {
+    /* IE10 Consumer Preview */
+    background: -ms-linear-gradient(top, #fabf4d 30%, #1e1e1e 100%);
+    /* Mozilla Firefox */
+    background: -moz-linear-gradient(top, #fabf4d 30%, #1e1e1e 100%);
+    /* Opera */
+    background: -o-linear-gradient(top, #fabf4d 30%, #1e1e1e 100%) ;
+    /* Webkit (Safari/Chrome 10) */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.3, #fabf4d), color-stop(1, #1e1e1e));
+    /* Webkit (Chrome 11+) */
+    background: -webkit-linear-gradient(top, #fabf4d 30%, #1e1e1e 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background: linear-gradient(to bottom, #fabf4d 30%, #1e1e1e 100%);
+}
+
+.golden-btn {
+  display: inline-block !important;
+  outline: none !important;
+  font-family: inherit !important;
+  font-size: 30px !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  border-radius: .3em  !important;
+  width: 100%;
+  height: 75px;
+  line-height: 2.5em  !important;
+  text-transform: uppercase  !important;
+  padding: 0 1em  !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(110,80,20,.4),
+              inset 0 -2px 5px 1px rgba(139,66,8,1),
+              inset 0 -1px 1px 3px rgba(250,227,133,1)  !important;
+  background-image: linear-gradient(160deg, #a54e07, #b47e11, #fef1a2, #bc881b, #a54e07)  !important;
+  border: 1px solid #a55d07  !important;
+  color: rgb(120,50,5)  !important;
+  text-shadow: 0 2px 2px rgba(250, 227, 133, 1)  !important;
+  cursor: pointer  !important;
+  transition: all .2s ease-in-out  !important;
+  background-size: 100% 100%  !important;
+  background-position:center  !important;
+}
+.golden-btn:focus,
+.golden-btn:hover {
+  background-size: 150% 150%  !important;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23),
+                inset 0 -2px 5px 1px #b17d10,
+                inset 0 -1px 1px 3px rgba(250,227,133,1)  !important;
+  border: 1px solid rgba(165,93,7,.6)  !important;
+  color: rgba(120,50,5,.8)  !important;
+}
+.golden-btn:active {
+  box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(110,80,20,.4),
+              inset 0 -2px 5px 1px #b17d10,
+                inset 0 -1px 1px 3px rgba(250,227,133,1);
+}
+
+
+
+.borders .ui-panelgrid-cell{
+border: 0px !important;
+}
+</style>
+
+</h:head>
+<p:tooltip />
+<h:body
+	style="background: #1e1e1e;
+  font-family: Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  ">
+  
+	<h:form>
+		<p:panelGrid columns="1" style="margin : 0 auto ; height: 180px;" styleClass= "borders">
+		<p:messages id="messages" showDetail="true" closable="true" style = "width:400px">
+			<p:autoUpdate />
+		</p:messages>
+		</p:panelGrid>
+		<p:panelGrid columns="2" style="margin : 0 auto" styleClass= "borders">
+			<p:column>
+				<h:graphicImage value="//images/MonetaLoginPage.png"
+					style="margin-right : 200px" />
+			</p:column>
+
+			<p:column>
+				<p:panelGrid columns="1"
+					style="width: 350px; height: 350px ; margin: 0 auto; " styleClass= "borders">
+
+					<p:column>
+						<p:panelGrid columns="2" styleClass= "borders">
+							<p:column>
+								<h:graphicImage value="//images/UsernameGold.png" style= "margin-bottom: 10px"/>
+							</p:column>
+
+							<p:column>
+								<p:inputText id="user" value="#{loginBean.username}"
+									toggleMask="true" redisplay="true" placeholder="Kullanıcı Adı"
+									styleClass="txt-dark"></p:inputText>
+								<p:message for="user" />
+
+							</p:column>
+						</p:panelGrid>
+
+
+
+						<p:panelGrid columns="2" styleClass= "borders">
+							<p:column>
+								<h:graphicImage value="//images/PasswordGold.png" style= "margin-bottom: 10px"/>
+							</p:column>
+							<p:column>
+								<p:password id="sifre" value="#{loginBean.password}"
+									toggleMask="false" redisplay="false" placeholder="Şifre" 
+									class="txt-dark" />
+								<p:message for="sifre" />
+
+							</p:column>
+						</p:panelGrid>
+
+						<p:spacer height="30px" />
+
+						<p:commandButton class="golden-btn" value="G İ R İ Ş" 
+							action="#{loginBean.doLogin()}"  />
+					</p:column>
+				</p:panelGrid>
+			</p:column>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

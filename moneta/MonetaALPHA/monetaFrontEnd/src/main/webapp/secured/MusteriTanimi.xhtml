@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:include src="main.xhtml" />
+
+	<style>
+.mtanimi {
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+
+
+
+
+</style>
+</h:head>
+<h:body>
+	<h:form id= "form1">
+		<p:spacer width="250px" height="150px" />
+		<p:growl id="messages" showDetail="true">
+			<p:autoUpdate />
+		</p:growl>
+
+		<p:accordionPanel style="margin-left: 300px ; margin-right: 100px " 
+			activeIndex="1">
+
+
+			<p:tab title="Yeni Müşteri Kaydı">
+				<h:panelGrid columns="3" cellpadding="15">
+					<p:outputLabel for="portföyNo" value="Portföy No:" />
+					<p:inputText id="portföyNo" value="#{musteriListBean.portfoyNo}"
+						maxlength="15" emptyValue="empty" label="Porftöy No"
+						required="true">
+						<f:validateLength minimum="1" />
+					</p:inputText>
+					<p:message for="portföyNo" errorClass= "errorPopUp"/>
+
+					<p:outputLabel for="tcNo" value="Müşteri TC Numarası:" />
+					<p:inputText id="tcNo" value="#{musteriListBean.tcNo}"
+						required="true" maxlength="11" label="Müşteri TC Numarası">
+						<f:validateLength minimum="11" />
+						<!-- p:ajax update="msgLastname" event="keyup" /-->
+					</p:inputText>
+					<p:message for="tcNo" errorClass= "errorPopUp"/>
+
+
+					<p:outputLabel for="ad" value="Müşteri Adı:" />
+					<p:inputText id="ad" value="#{musteriListBean.ad}" required="true"
+						maxlength="100" label="ad">
+						<f:validateLength minimum="2" />
+					</p:inputText>
+					<p:message for="ad"/>
+
+					<p:outputLabel for="soyad" value="Müşteri Soyadı:" />
+					<p:inputText id="soyad" value="#{musteriListBean.soyad}"
+						required="true" maxlength="100" label="Soyad">
+						<f:validateLength minimum="2" />
+					</p:inputText>
+					<p:message for="soyad"/>
+
+
+					<p:outputLabel for="bakiye" value="Müşteri Bakiyesi:" />
+					<p:inputNumber id="bakiye" value="#{musteriListBean.bakiye}"
+						required="true" symbol=" ₺" symbolPosition="s"
+						decimalSeparator="," thousandSeparator="." maxlength="100"
+						label="Müşteri Bakiyesi" minValue = "0">
+						
+					</p:inputNumber>
+					<p:message for="bakiye"/>
+
+					<p:outputLabel for="option" value="Yerleşim Belgesi:" />
+					<p:selectOneMenu styleClass="MenuGel" id="option"
+						value="#{musteriListBean.yerlesimBelgesi}" required="true">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItem itemLabel="Var" itemValue="Var" />
+						<f:selectItem itemLabel="Yok" itemValue="Yok" />
+						<f:facet name="footer">
+						</f:facet>
+
+					</p:selectOneMenu>
+					<p:message for="option" display="icon" />
+
+				</h:panelGrid>
+				<p:commandButton value="Yeni Oluştur" icon="pi pi-plus"
+					actionListener="#{musteriListBean.saveMusteri}"
+					styleClass="golden-btn" style="margin-left: 80% ; margin-top:10px" />
+			</p:tab>
+
+		</p:accordionPanel>
+
+		<p:column>
+
+
+		</p:column>
+
+		<p:column>
+			<p:commandButton value="Yeni Oluştur" icon="pi pi-plus"
+				actionListener="#{musteriListBean.saveMusteri}"
+				oncomplete="PF('manageProductDialog').show()"
+				styleClass="ui-button-success" style="margin-right: .5rem" />
+		</p:column>
+</h:form>
+
+	<h:form id= "form2">
+	<p:panelGrid columns="1"
+		style="margin-left : 250px ; margin-right: 25px; margin-top : 1%">
+
+		<p:column>
+			<p:dataTable id="table" widgetVar="dtMlist" var="musteriListBean"
+				value="#{musteriListBean.musteriList}"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				paginator="true" rows="10" styleClass="mt-2"
+				rowKey="#{musteriListBean.portfoyNo}"
+				emptyMessage="Bir Kayıt Bulunamadı.">
+
+				<f:facet name="header">
+					<div class="products-table-header">
+						<span style="font-weight: bold">Müşteri Listesi</span> <span
+							style="margin-left: 65%"
+							class="filter-container ui-input-icon-left"> <i
+							class="pi pi-search"></i> <p:inputText id="globalFilter"
+								onkeyup="PF('dtMlist').filter()" placeholder="Portföy No" />
+						</span>
+					</div>
+				</f:facet>
+				<p:column headerText="Portföy No"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.portfoyNo}"
+					filterBy="#{musteriListBean.portfoyNo}"
+					styleClass="modeColumnFilter">
+					<h:outputText value="#{musteriListBean.portfoyNo}" />
+				</p:column>
+
+				<p:column headerText="Müşteri Adı"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.ad}">
+
+					<h:outputText value="#{musteriListBean.ad}" />
+				</p:column>
+
+				<p:column headerText="Müşteri Soyadı"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.soyad}">
+
+					<h:outputText value="#{musteriListBean.soyad}" />
+				</p:column>
+
+				<p:column headerText="Müşteri TC Numarası"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.tcNo}">
+					<h:outputText value="#{musteriListBean.tcNo}" />
+				</p:column>
+
+				<p:column headerText="Yerleşim Belgesi"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.yerlesimBelgesi}">
+					<h:outputText value="#{musteriListBean.yerlesimBelgesi}" />
+				</p:column>
+
+				<p:column headerText="Müşteri Bakiyesi"
+					style="background : #484849 !important"
+					sortBy="#{musteriListBean.bakiye}">
+					<h:outputText value="#{musteriListBean.bakiye}" />
+				</p:column>
+
+			</p:dataTable>
+		</p:column>
+	</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

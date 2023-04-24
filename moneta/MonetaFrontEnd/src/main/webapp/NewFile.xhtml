@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+
+<style>
+
+.btn-color{
+color: #fffff;
+padding-left: 100px;
+}
+
+</style>
+
+</h:head> 
+<body>
+		
+	<p:inputText value="#{loginPage.username}" required="true" maxlength="15" 
+    					placeholder="Portföy No"
+    					style="font-family: Impact, sans-serif;
+						  outline: 0;
+						  background: #f2f2f2;
+						  width: 450px;
+						  border: 0;
+						  margin: 0 0 15px;
+						  padding: 15px;
+						  box-sizing: border-box;
+						  font-size: 20px;"/>
+    
+    
+    <script>
+    PrimeFaces.locales['tr'] = {
+        closeText: 'Kapat',
+        prevText: 'Önceki',
+        nextText: 'Sonraki',
+        monthNames: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+        monthNamesShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+        dayNames: ['Pazar' , 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+        dayNamesShort: ['PZR', 'PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT'],
+        dayNamesMin: ['PA', 'PT', 'SA', 'ÇA', 'PE', 'CU', 'CT' ],
+        weekHeader: 'Hafta',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Sadece Zaman',
+        timeText: 'Zaman',
+        hourText: 'Saat',
+        minuteText: 'Dakika',
+        secondText: 'Saniye',
+        millisecondText: 'Milisaniye',
+        currentText: 'Şimdiki Tarih',
+        ampm: false,
+        month: 'Ay',
+        week: 'Hafta',
+        day: 'Gün',
+        allDayText: 'Tüm Gün',
+        today: 'Bugün',
+        clear: 'Temizle'
+    };
+
+	
+    
+    </script>
+    
+    <h:form id="form">
+    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+     
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel for="inline" value="Inline:" />
+        <p:calendar id="inline" value="#{calendarView.date3}" mode="inline" disabled = "true"/>
+       </h:panelGrid>
+    </h:form>
+    
+     	  <h5>Basic</h5>
+    <p:commandButton type="button" value="Submit" styleClass = "btn-color"/>
+    
+    
+</body> 
+</html>

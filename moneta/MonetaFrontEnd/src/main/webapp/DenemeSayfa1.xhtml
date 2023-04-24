@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">-->
+
+
+<html     xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+     xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>melihhilmiuludag-student.proj</title>
+    <link rel="stylesheet" href="WEB-INF/layouts/css/bootstrap.css" type="text/css"/>
+    <h:outputStylesheet name="css/bootstrap.css" />
+</h:head>
+	<style type="text/css">
+    .ui-panel, div.ui-state-hover {
+        margin: 10px;
+        width:200px;
+    }
+
+    .ui-dashboard-column {
+        width:220px;
+    }
+	</style>
+<h:body>
+    <h:form>
+
+        <p:separator />
+
+        <p:commandButton id="dynaButton" value="Start" type="button" icon="pi pi-home"/>
+        <p:slideMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:400px;">
+            <p:submenu label="CRUD Operations" style="height: 30px;">
+                <p:menuitem value="Create" action="#{pageView.create}"  icon="pi pi-save"/>
+                <p:menuitem value="Read, Update, Delete" action="#{pageView.readupdatedelete}"  icon="pi pi-refresh"/>
+            </p:submenu>
+            <p:submenu label="Other" style="height: 30px;">
+                <p:menuitem value="File Upload" action="#{pageView.fileupload}"  icon="pi pi-save"/>
+            </p:submenu>
+        </p:slideMenu>
+    </h:form>
+<h:form>
+
+
+
+
+
+    <div style="height:500px">
+        <h:form style="align-content: center">
+            <h1>USED TECHNOLOGIES</h1>
+             <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+
+            <p:dashboard id="board" model="#{dashboardView.model}">
+                <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs" />
+
+                <p:panel id="spring" header="Spring Boot Version">
+                    <h:outputText value="2.2.6" />
+                </p:panel>
+
+                <p:panel id="jdk" header="Java Version">
+                    <h:outputText value="openJDK 11" />
+                </p:panel>
+
+                <p:panel id="primefaces" header="Primefaces Version">
+                    <h:outputText value="6.1"  />
+                </p:panel>
+
+                <p:panel id="jsf" header="JSF Version">
+                    <h:outputText value="2.2.0" />
+                </p:panel>
+
+                <p:panel id="hsqldb" header="HSQL Ebedded DB Version">
+                    <h:outputText value="2.4.0" />
+                </p:panel>
+            </p:dashboard>
+
+            <div style="clear:both" />
+        </h:form>
+    </div>
+    <div>
+
+    </div>
+</h:form>
+
+
+</h:body>
+
+
+
+</html>
+

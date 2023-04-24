@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<ui:include src="main.xhtml" />
+
+	<style>
+	.ftanim{
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2 !important;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+
+
+</style>
+</h:head>
+<h:body>
+	<p:spacer width="250px" height="80px" />
+
+	<h:form>
+		<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+			<p:column>
+				<p:dataTable id="table" widgetVar = "dtFonlar" var="fonTanimiBean"
+					value="#{fonTanimiBean.fonList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="5" styleClass="mt-2" >
+					
+					<f:facet name="header">
+                		<div class="products-table-header">
+                    		<span style="font-weight: bold">Fon Listesi</span> <span style = "margin-left: 70% "
+                        	class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
+                            id="globalFilter" onkeyup="PF('dtFonlar').filter()" placeholder="Fon Ara" />
+                   			 </span>
+
+                		</div>
+            		</f:facet>
+					<p:column headerText = "Fon Kodu" style="background : #484849 !important ; width: 100px" 
+						sortBy="#{fonTanimiBean.fonKodu}" filterBy="#{fonTanimiBean.fonKodu}" styleClass="modeColumnFilter">
+						<h:outputText value="#{fonTanimiBean.fonKodu}" />
+					</p:column>
+
+					<p:column headerText = "Fon Adı" style="background : #484849 !important"
+						sortBy="#{fonTanimiBean.fonAdi}" filterBy="#{fonTanimiBean.fonAdi}" styleClass="modeColumnFilter">
+						
+						<h:outputText value="#{fonTanimiBean.fonAdi}" />
+					</p:column>
+
+					<p:column headerText = "ISIN Kodu" style="background : #484849 !important"
+						sortBy="#{fonTanimiBean.isinKodu}"  filterBy="#{fonTanimiBean.isinKodu}" styleClass="modeColumnFilter">
+					
+						<h:outputText value="#{fonTanimiBean.isinKodu}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+	</h:form>
+
+</h:body>
+
+</html>

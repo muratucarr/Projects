@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="#{loginBean.layoutPath}#{initParam['infleks.jsf.COMMON_TEMPLATE']}"
+ 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:inf="http://www.infina.com/tags/jsf/inf"
+	xmlns:inx="http://www.infina.com/tags/jsf/inx"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	<ui:define name="title">Deneme Kayıt Sayfası</ui:define>
+	<ui:define name="content">
+		<p:fieldset id="yeniKayit" widgetVar="yeniKayitDlg" legend="Yeni Müşteri Kaydı" style="width: 1000px; margin: 0 auto;" collapsed="true" toggleable="true" toggleSpeed="500" >
+			<p:panel id="yeniKayitPanel" style="width: 850px;border:none;" styleClass="FILTERPANEL">
+				<p:panelGrid columns="2" >
+					<p:panelGrid columns="2" columnClasses="ui-widget-header XACTIONCENTRE">
+						<p:outputLabel value="Müşteri Adı"></p:outputLabel>
+						<inf:text value="#{jsfDenemeBean.ad}" required="true" maxlength="15">
+							<p:ajax event="valueChange" process="@this"/>
+						</inf:text>
+		
+						<p:outputLabel value="Müşteri Soyadı"></p:outputLabel>
+						<inf:text value="#{jsfDenemeBean.soyad}" required="true" maxlength="15">
+							<p:ajax event="valueChange" process="@this"/>
+						</inf:text>
+						
+						<p:outputLabel value="TC Vatandaşı"></p:outputLabel>
+						<p:panelGrid columns="3" columnClasses="XACTIONCENTRE, ui-widget-header XACTIONCENTRE, XACTIONCENTRE">
+							<p:selectBooleanCheckbox value="#{jsfDenemeBean.tcVatandasMi}">
+								<p:ajax process="@this" update="yeniKayitPanel"/>
+							</p:selectBooleanCheckbox>
+							<c:if test="#{jsfDenemeBean.tcVatandasMi}">
+								<p:outputLabel value="TC Kimlik No"></p:outputLabel>
+								<inf:text value="#{jsfDenemeBean.tcNo}" required="#{jsfDenemeBean.tcVatandasMi}" maxlength="11">
+									<p:ajax event="valueChange" process="@this"/>
+								</inf:text>
+							</c:if>
+							<c:if test="#{!jsfDenemeBean.tcVatandasMi}">
+								<p:outputLabel value="Pasaport No"></p:outputLabel>
+								<inf:text value="#{jsfDenemeBean.pasaportNo}" required="#{!jsfDenemeBean.tcVatandasMi}" maxlength="10">
+									<p:ajax event="valueChange" process="@this"/>
+								</inf:text>
+							</c:if>
+						</p:panelGrid>
+					</p:panelGrid>
+					<p:panelGrid columns="2" columnClasses="ui-widget-header XACTIONCENTRE">
+						<p:outputLabel value="Müşteri Doğum Tarihi"></p:outputLabel>
+						<inx:tarih value="#{jsfDenemeBean.dogumTarihi}" styleClass="tarih" required="true"/>
+						
+						<p:outputLabel value="Medeni Durumu"></p:outputLabel>
+						<p:selectOneMenu value="#{jsfDenemeBean.medeniDurum}">
+	<!-- 	                    <f:selectItem itemLabel="Select One" itemValue=""/> -->
+		                    <f:selectItem itemLabel="Evli" itemValue="1"/>
+		                    <f:selectItem itemLabel="Bekar" itemValue="2"/>
+						</p:selectOneMenu>
+					
+						<p:outputLabel value="Ulaşım Tipi"></p:outputLabel>
+						<p:selectOneMenu value="#{jsfDenemeBean.ulasimTipi}">
+		                    <f:selectItem itemLabel="Ucak" itemValue="1"/>
+		                    <f:selectItem itemLabel="Tren" itemValue="2"/>
+		                    <f:selectItem itemLabel="Otobüs" itemValue="3"/>
+		                    <f:selectItem itemLabel="Vapur" itemValue="4"/>
+						</p:selectOneMenu>
+					</p:panelGrid>
+				</p:panelGrid>
+				<f:facet name="footer">
+					<p:commandButton id="kaydetButton" value="#{res.si_yazi_kaydet}" actionListener="#{jsfDenemeBean.kaydet()}" style="width: 120px" update="yeniKayitPanel table" process="yeniKayitPanel" icon="ui-icon-disk">
+						<p:confirm header="#{res.si_yazi_uyariBuyuk}" message="#{res.si_yazi_kaydetmeMesaji}" icon="ui-icon-alert"/>
+					</p:commandButton>
+					<p:commandButton value="#{res.si_yazi_temizle}" actionListener="#{jsfDenemeBean.temizle()}" style="width: 120px" update="yeniKayitPanel" process="@this" icon="fa fa-recycle"/>
+				</f:facet>
+			</p:panel>
+		</p:fieldset>
+		<p:spacer height="10px" />
+		<p:panel id="filterPanel" style="width: 500px;border:none;" styleClass="FILTERPANEL" header="Musteri Filtre Ile Listele">
+			<p:panelGrid columns="2" columnClasses="ui-widget-header XACTIONCENTRE">
+				<p:outputLabel value="Müşteri Soyadı"></p:outputLabel>
+				<inf:text value="#{jsfDenemeBean.soyadFilter}"></inf:text>
+				<p:outputLabel value="Medeni Durumu"></p:outputLabel>
+				<p:selectOneMenu value="#{jsfDenemeBean.medeniDurumFilter}">
+					<f:selectItem itemLabel="Hepsi" itemValue=""/>
+                    <f:selectItem itemLabel="Evli" itemValue="1"/>
+                    <f:selectItem itemLabel="Bekar" itemValue="2"/>
+				</p:selectOneMenu>
+				<p:outputLabel value="Ulaşım Tipi"></p:outputLabel>
+				<p:selectOneMenu value="#{jsfDenemeBean.ulasimTipiFilter}">
+					<f:selectItem itemLabel="Hepsi" itemValue=""/>
+                    <f:selectItem itemLabel="Ucak" itemValue="1"/>
+                    <f:selectItem itemLabel="Tren" itemValue="2"/>
+                    <f:selectItem itemLabel="Otobüs" itemValue="3"/>
+                    <f:selectItem itemLabel="Vapur" itemValue="4"/>
+				</p:selectOneMenu>
+			</p:panelGrid>
+			<f:facet name="footer">
+				<p:commandButton id="listeleButton" value="Listele" actionListener="#{jsfDenemeBean.filtreIleListele()}" style="width: 120px" update="table" process="filterPanel" icon="fa fa-list-alt"/>
+				<p:commandButton value="Temizle" actionListener="#{jsfDenemeBean.filterTemizle()}" style="width: 120px" update="filterPanel" process="@this" icon="fa fa-recycle"/>
+			</f:facet>
+		</p:panel>
+		<p:spacer height="10px" />
+		<p:panel id="tablePanel" style="width: 95%;border:none;">
+			<p:dataTable id="table" var="musteri" value="#{jsfDenemeBean.musteriList}" scrollable="true" scrollHeight="350" style="width: 95%; margin: 0 auto" 
+				emptyMessage="#{res.si_yazi_kayitBulunamadi}" rows="10" paginator="true" paginatorPosition="top" 
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,25,50">
+					<p:column headerText="Müşteri Adı" styleClass="datacol-num" style="text-align: center" width="150">
+						#{musteri.musteriAdi}
+					</p:column>
+					<p:column headerText="Müşteri Soyadı" styleClass="datacol-num" style="text-align: center" width="150">
+						#{musteri.musteriSoyadi}
+					</p:column>
+					<p:column headerText="Doğum Tarihi" styleClass="datacol-num" style="text-align: center" width="150">
+						#{musteri.musteriDogumTarihi}
+					</p:column>
+					<p:column headerText="Pasaport No" styleClass="datacol-num" style="text-align: center" width="150">
+						#{musteri.pasaportNo}
+					</p:column>
+					<p:column headerText="TC No" styleClass="datacol-num" style="text-align: center" width="150">
+						#{musteri.tcNo}
+					</p:column>
+					<p:column headerText="Medeni Durumu" styleClass="datacol-num" style="text-align: center" width="150">
+						<p:selectOneMenu value="#{musteri.medeniDurum}" disabled="true">
+		                    <f:selectItem itemLabel="Evli" itemValue="1"/>
+		                    <f:selectItem itemLabel="Bekar" itemValue="2"/>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column headerText="Ulaşım Tipi" styleClass="datacol-num" style="text-align: center" width="150">
+						<p:selectOneMenu value="#{musteri.ulasimTipi}" disabled="true">
+		                    <f:selectItem itemLabel="Ucak" itemValue="1"/>
+		                    <f:selectItem itemLabel="Tren" itemValue="2"/>
+		                    <f:selectItem itemLabel="Otobüs" itemValue="3"/>
+		                    <f:selectItem itemLabel="Vapur" itemValue="4"/>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column headerText="Sil" styleClass="datacol-btn">
+					 	<p:commandButton icon="ui-icon-trash" actionListener="#{jsfDenemeBean.sil(musteri)}" update="table" process="@this">
+					 		<p:confirm header="#{res.si_yazi_uyariBuyuk}" message="#{res.si_yazi_silmeOnayi}" icon="ui-icon-alert" />
+					 	</p:commandButton>
+					</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:spacer height="20px"/>
+	</ui:define>
+</ui:composition>

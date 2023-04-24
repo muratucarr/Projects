@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:include src="main.xhtml" />
+	<style>
+.alimsatim {
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+</style>
+</h:head>
+<h:body style="background-color:gray;">
+	<div style="position: fixed; right: 0px; top: 0px; margin: 10px"
+		class="field col-12 md:col-4">
+
+		<p:inputMask id="date" value="18082022" mask="31/12/2023" />
+	</div>
+
+	<!--  span style="margin-top: 100px; margin-left: 230px"
+		class="ui-input-icon-left"> <p:outputLabel
+			style="color:white;font-size:20px;margin:20px" for="@previous"
+			value="  " /> <p:inputText placeholder="Portföy No " /> <p:button
+			style="background-color:black;margin:5px;" icon="pi pi-search"
+			styleClass="ui-button-outlined" />
+	</span-->
+
+	<span style="margin-left: 50px;" class="ui-input-icon-left"> <p:outputLabel
+			style="color:white;font-size:20px;margin-left:200px" for="@previous"
+			value="    " /> <p:inputText placeholder="Bakiye  " />
+	</span>
+
+	<div style="margin-right: 300px">
+		<h:form>
+			<p:panelGrid columns="1"
+				style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+
+
+				<p:column>
+
+
+				</p:column>
+
+				<p:column>
+
+					<p:dataTable id="table" var="product" widgetVar="AlimSatim"
+						value="#{dataExporterView.products}"
+						paginatorTemplate="{CurrentPageReport} {}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginator="true" rows="10" styleClass="mt-2">
+
+						<f:facet name="header">
+							<div class="products-table-header">
+								<span
+									class="filter-container ui-input-icon-left"> <i
+									class="pi pi-search"></i> <p:inputText
+                            id="globalFilter" onkeyup="PF('AlimSatim').filter()" placeholder="Portföy No" />
+								</span>
+
+							</div>
+						</f:facet>
+
+						<p:column style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Fon Adı" />
+							</f:facet>
+							<h:outputText value="#{product.name}" />
+						</p:column>
+
+						<p:column style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Fon Adı" />
+							</f:facet>
+							<h:outputText value="#{product.name}" />
+						</p:column>
+
+						<p:column styleClass="text-center"
+							style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Code" />
+							</f:facet>
+							<h:outputText value="#{product.category}" />
+						</p:column>
+
+						<p:column styleClass="text-right"
+							style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Adet" />
+							</f:facet>
+							<h:outputText value="#{product.quantity}" />
+						</p:column>
+
+						<p:column styleClass="text-right"
+							style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Birim Fiyat" />
+							</f:facet>
+							<h:outputText value="#{product.price}">
+								<f:convertNumber type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column styleClass="text-right"
+							style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Miktar" />
+							</f:facet>
+							<h:outputText value="#{product.price}">
+								<f:convertNumber type="currency" />
+							</h:outputText>
+						</p:column>
+
+					</p:dataTable>
+				</p:column>
+				<p:column>
+
+					<span style="margin-left: 340px;"> <p:commandButton
+							styleClass="rounded-button" value="AL" icon="pi pi-check"
+							onclick="PF('dlg1').show();">
+
+							<p:dialog showEffect="slide" hideEffect="explode"
+								widgetVar="dlg1" header="FON ADI " width="280" height="250px">
+								<p:inputText style="margin:10px" placeholder="Birim Fiyat" />
+								<p:inputText style="margin:10px" placeholder="tutar" />
+								<p:commandButton icon="pi pi-check" styleClass="rounded-button"
+									style="margin:10px;" value="Al" />
+							</p:dialog>
+						</p:commandButton>
+					</span>
+
+					<span style="margin-left: 30px;"> <p:commandButton
+							styleClass="rounded-button ui-button-danger" value="SAT"
+							onclick="PF('dlg2').show();" icon="pi pi-times">
+
+							<p:dialog showEffect="slide" hideEffect="explode"
+								widgetVar="dlg2" header="FON ADI " width="280px" height="250px">
+								<p:inputText style="margin:10px" placeholder="Birim Fiyat" />
+								<p:inputText style="margin:10px" placeholder="tutar" />
+
+								<p:button icon="pi pi-times" value="Sat"
+									styleClass="rounded-button ui-button-danger" />
+
+							</p:dialog>
+						</p:commandButton>
+					</span>
+
+				</p:column>
+				<p:column>
+
+
+
+				</p:column>
+			</p:panelGrid>
+		</h:form>
+	</div>
+	<div style="margin-right: 300px">
+		<h:form>
+			<p:panelGrid columns="1"
+				style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+				<p:column>
+					<p:dataTable id="table" var="product"
+						value="#{dataExporterView.products}"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+						paginator="true" rows="10" styleClass="mt-2">
+						<p:column style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="TARİH" />
+							</f:facet>
+							<h:outputText value="#{product.name}" />
+						</p:column>
+
+						<p:column styleClass="text-center"
+							style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Fon Adı" />
+							</f:facet>
+							<h:outputText value="#{product.category}" />
+						</p:column>
+
+						<p:column styleClass="text-right"
+							style="background : #484849 !important">
+							<f:facet name="header">
+								<h:outputText style="color:white;" value="Adet" />
+							</f:facet>
+							<h:outputText value="#{product.quantity}" />
+						</p:column>
+
+
+					</p:dataTable>
+				</p:column>
+				<p:column>
+					<span style="margin-left: 340px;"> <p:commandButton
+							type="button" onclick="PF('sample').show();" style="margin:50px"
+							class="ui-button-warning rounded-button" icon="pi pi-trash">
+
+							<p:dialog showEffect="slide" hideEffect="explode"
+								header="Silmek istediğinizden Emin misiniz ?" widgetVar="sample"
+								minHeight="40">
+								<p:commandButton icon="pi pi-check" styleClass="rounded-button"
+									style="margin:10px;" value="EVET" />
+								<p:commandButton icon="pi pi-times"
+									styleClass="rounded-button ui-button-danger"
+									style="margin-top:30px;margin-left:150px;" value="HAYIR"
+									onclick="PF('sample').hide();" />
+							</p:dialog>
+						</p:commandButton>
+					</span>
+					<p:selectBooleanCheckbox value="#{selectBooleanView.value1}" />
+
+				</p:column>
+			</p:panelGrid>
+		</h:form>
+	</div>
+
+
+</h:body>
+</html>

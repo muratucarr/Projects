@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" lang="tr">
+<ui:define name="title"> Giriş Sayfası </ui:define>
+
+<h:head>
+
+	<style>
+	
+	
+::-webkit-input-placeholder {
+	color: #747472 !important;
+}
+
+:-moz-placeholder {
+	color: #747472 !important;
+}
+
+::-moz-placeholder {
+	color: #747472 !important;
+}
+
+:-ms-input-placeholder {
+	color: #747472 !important;
+}
+	
+	
+.txt-dark.ui-inputfield {
+	font-family: Impact, sans-serif !important;
+	outline: 0;
+	background: #cac8c8 !important;
+	width: 450px !important;
+	border: 0 !important;
+	padding: 20px !important;
+	box-sizing: border-box !important;
+	font-size: 20px !important;
+	color: black !important;
+}
+
+.btn-dark.ui-button {
+	font-family: Impact, sans-serif;
+	text-transform: uppercase;
+	outline: 0;
+	background: #000000;
+	width: 100%;
+	border: 0;
+	border-radius: 3px;
+	padding: 16px;
+	color: #FFFFFF;
+	font-size: 26px;
+	-webkit-transition: all 0.3 ease;
+	transition: all 0.3 ease;
+	cursor: pointer;
+}
+
+.btn-dark:hover:enabled {
+    /* IE10 Consumer Preview */
+    background: -ms-linear-gradient(top, #484849 30%, #1e1e1e 100%);
+    /* Mozilla Firefox */
+    background: -moz-linear-gradient(top, #484849 30%, #1e1e1e 100%);
+    /* Opera */
+    background: -o-linear-gradient(top, #484849 30%, #1e1e1e 100%) ;
+    /* Webkit (Safari/Chrome 10) */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.3, #484849), color-stop(1, #1e1e1e));
+    /* Webkit (Chrome 11+) */
+    background: -webkit-linear-gradient(top, #484849 30%, #1e1e1e 100%);
+    /* W3C Markup, IE10 Release Preview */
+    background: linear-gradient(to bottom, #484849 30%, #1e1e1e 100%);
+}
+
+.borders .ui-panelgrid-cell{
+border: 0px !important;
+}
+</style>
+
+</h:head>
+<p:tooltip />
+<h:body
+	style="background: #1e1e1e;
+  font-family: Courier, monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  ">
+  
+	<h:form>
+		<p:panelGrid columns="1" style="margin : 0 auto ; height: 180px;" styleClass= "borders">
+		<p:messages id="messages" showDetail="true" closable="true" style = "width:400px">
+			<p:autoUpdate />
+		</p:messages>
+		</p:panelGrid>
+		<p:panelGrid columns="2" style="margin : 0 auto" styleClass= "borders">
+			<p:column>
+				<h:graphicImage value="//images/MonetaLogoGolden.png"
+					style="margin-right : 200px" />
+			</p:column>
+
+			<p:column>
+				<p:panelGrid columns="1"
+					style="width: 350px; height: 350px ; margin: 0 auto; " styleClass= "borders">
+
+					<p:column>
+						<p:panelGrid columns="2" styleClass= "borders">
+							<p:column>
+								<h:graphicImage value="//images/Username.png" style= "margin-bottom: 10px"/>
+							</p:column>
+
+							<p:column>
+								<p:inputText id="user" value="#{personelListBean.kullaniciAdi}"
+									toggleMask="true" redisplay="true" placeholder="Kullanıcı Adı"
+									styleClass="txt-dark"></p:inputText>
+								<p:message for="user" errorClass="errorMessage" />
+
+							</p:column>
+						</p:panelGrid>
+
+
+
+						<p:panelGrid columns="2" styleClass= "borders">
+							<p:column>
+								<h:graphicImage value="//images/Password.png" style= "margin-bottom: 10px"/>
+							</p:column>
+							<p:column>
+								<p:password id="sifre" value="#{personelListBean.sifre}"
+									toggleMask="false" redisplay="false" placeholder="Şifre"
+									class="txt-dark" />
+								<p:message for="sifre" errorClass="errorMessage" />
+
+							</p:column>
+						</p:panelGrid>
+
+						<p:spacer height="30px" />
+
+						<p:commandButton class="btn-dark" value="G İ R İ Ş"
+							action="#{personelListBean.LoginPage()}"  />
+					</p:column>
+				</p:panelGrid>
+			</p:column>
+		</p:panelGrid>
+	</h:form>
+</h:body>
+</html>

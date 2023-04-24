@@ -1,0 +1,75 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+  	xmlns:p="http://primefaces.org/ui">    
+    
+
+
+		
+		<p:inputText value="#{loginPage.username}" required="true" maxlength="15" 
+    					placeholder="Portföy No"
+    					style="font-family: Impact, sans-serif;
+						  outline: 0;
+						  background: #f2f2f2;
+						  width: 450px;
+						  border: 0;
+						  margin: 0 0 15px;
+						  padding: 15px;
+						  box-sizing: border-box;
+						  font-size: 20px;"/>
+    
+    
+    <script>
+    PrimeFaces.locales['tr'] = {
+        closeText: 'Kapat',
+        prevText: 'Önceki',
+        nextText: 'Sonraki',
+        monthNames: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+        monthNamesShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+        dayNames: ['Pazar' , 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+        dayNamesShort: ['PZR', 'PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT'],
+        dayNamesMin: ['PA', 'PT', 'SA', 'ÇA', 'PE', 'CU', 'CT' ],
+        weekHeader: 'Hafta',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Sadece Zaman',
+        timeText: 'Zaman',
+        hourText: 'Saat',
+        minuteText: 'Dakika',
+        secondText: 'Saniye',
+        millisecondText: 'Milisaniye',
+        currentText: 'Şimdiki Tarih',
+        ampm: false,
+        month: 'Ay',
+        week: 'Hafta',
+        day: 'Gün',
+        allDayText: 'Tüm Gün',
+        today: 'Bugün',
+        clear: 'Temizle'
+    };
+    
+    </script>
+    
+    <h:form id="form">
+    <p:growl id="msgs" showDetail="true" skipDetailIfEqualsSummary="true" />
+     
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel for="inline" value="Inline:" />
+        <p:calendar id="inline" value="#{calendarView.date1}" mode="inline" />
+       </h:panelGrid>
+    </h:form>
+    
+    
+    
+	<input     type="datetime-local" 
+         value="2022-08-10"
+       min="2022-08-07T00:00" max="2022-08-08T00:00"/>
+    
+    	<input type="date"  disabled ="true" value="#{calendarView.todayy}" />
+       <input type="datetime"/>
+       <input type="datetime-local"/>
+
+    </html>

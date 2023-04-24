@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+<ui:include src="main.xhtml" />
+
+	<style>
+	.ftanim{
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2 !important;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+
+
+</style>
+</h:head>
+<h:body>
+	<p:spacer width="250px" height="80px" />
+
+	<h:form id = "form">
+	
+		<p:growl id="messages" showDetail="true" />	
+		<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+			<p:column>
+				<p:dataTable id="table" widgetVar = "dtFonlar" var="fonTanimiBean"
+					value="#{fonTanimiBean.fonList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="5" styleClass="mt-2" >
+					
+					<f:facet name="header">
+                		<div class="products-table-header">
+                    		<span style="font-weight: bold">Fon Listesi</span> <span style = "margin-left: 55% "
+                        	class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
+                            id="globalFilter" onkeyup="PF('dtFonlar').filter()" placeholder="Fon Ara" />
+                   			 </span>
+                   			 <p:commandButton value="Fon Ekle" icon="pi pi-plus" actionListener="#{fonTanimiBean.openNew}"
+                    				update=":dialogs:manage-product-content" oncomplete="PF('manageProductDialog').show()"
+                    				styleClass="golden-btn" style="margin-right: .5rem ; margin-left:30px">
+                    				<p:resetInput target=":dialogs:manage-product-content" />
+                				</p:commandButton>
+
+                		</div>
+            		</f:facet>
+					<p:column headerText = "Fon Kodu" style="background : #484849 !important ; width: 150px" 
+						sortBy="#{fonTanimiBean.fonKodu}" filterBy="#{fonTanimiBean.fonKodu}" styleClass="modeColumnFilter">
+						<h:outputText value="#{fonTanimiBean.fonKodu}" />
+					</p:column>
+
+					<p:column headerText = "Fon Adı" style="background : #484849 !important; width:750px"
+						sortBy="#{fonTanimiBean.fonAdi}" filterBy="#{fonTanimiBean.fonAdi}" styleClass="modeColumnFilter">
+						
+						<h:outputText value="#{fonTanimiBean.fonAdi}" />
+					</p:column>
+
+					<p:column headerText = "ISIN Kodu" style="background : #484849 !important"
+						sortBy="#{fonTanimiBean.isinKodu}"  filterBy="#{fonTanimiBean.isinKodu}" styleClass="modeColumnFilter">
+					
+						<h:outputText value="#{fonTanimiBean.isinKodu}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+	</h:form>
+	
+	<h:form id="dialogs">
+        <p:dialog header="Fon Ekleme" showEffect="fade" modal="true" widgetVar="manageProductDialog"
+            responsive="true">
+            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty fonTanimiBean.selectedFonTanimi}">
+                 
+                    <div class="field">
+                        <p:outputLabel for="fon_kodu">Fon Kodu</p:outputLabel>
+                        <p:inputText id="fon_kodu" value="#{fonTanimiBean.selectedFonTanimi.fonKodu}" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="fon_adi">Fon Adı</p:outputLabel>
+                        <p:inputTextarea id="fon_adi" value="#{fonTanimiBean.selectedFonTanimi.fonAdi}" />
+                    </div>
+                     <div class="field">
+                        <p:outputLabel for="isin_kodu">ISIN Kodu</p:outputLabel>
+                        <p:inputText id="isin_kodu" value="#{fonTanimiBean.selectedFonTanimi.isinKodu}" />
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+
+            <f:facet name="footer">
+                <p:commandButton value="Kaydet" icon="pi pi-check" actionListener="#{fonTanimiBean.saveFonTanimi}"
+                    update="manage-product-content" process="manage-product-content @this" class="golden-btn"/>
+                <p:commandButton value="İptal" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                    class="golden-btn" type="button"/>
+            </f:facet>
+        </p:dialog>
+        </h:form>
+
+</h:body>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<ui:include src="main.xhtml" />
+
+
+	<style>
+.hprov {
+	font-family: Roboto, sans-serif !important;
+	padding: 16px !important;
+	text-decoration: none !important;
+	display: block !important;
+	font-size: 18px !important;
+	background-color: #f2f2f2 !important;
+	color: black !important;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-style: dashed;
+}
+
+
+.onay.ui-button{
+	background-color: green! important;
+	border: 0px !important;
+	color: white !important;
+}
+
+.red.ui-button{
+	background-color: red !important;
+	border: 0px !important;
+	color: white !important;
+}
+
+</style>
+
+</h:head>
+
+<h:body>
+
+	
+
+
+<h:form>
+<p:spacer width="250px" height="150px" />
+	<p:inputText value="#{loginPage.password}" required="true"
+		maxlength="15" placeholder="Portföy No" />
+	<p:spacer width="20px" />
+	<p:column>
+		  <p:datePicker id="date" value="#{monetaUtilsImpl.date}" monthNavigator="true"
+                        disabled="true"  pattern="dd.MM.yyyy"/>
+		<p:spacer width="20px" />
+	</p:column>
+
+
+	<p:column>
+		<p:inputNumber id="tutar" value="#{havaleProvizyonBean.islemTutari}"
+			symbol=" ₺" symbolPosition="s" decimalSeparator=","
+			thousandSeparator="." />
+	</p:column>
+	<p:spacer width="20px" />
+	<p:column>
+     <p:selectOneMenu styleClass="MenuGel" id="option" value="#{havaleProvizyonBean.islemTipi}">
+                    <f:selectItem itemLabel="İşlem Tipi" itemValue=""/>
+                    <f:selectItem itemLabel="Havale" itemValue="Havale"/>
+                    <f:selectItem itemLabel="Provizyon" itemValue="Provizyon"/>
+                    <f:facet name="footer">                       
+                    </f:facet>
+                   
+     </p:selectOneMenu>
+     
+	</p:column>
+	<p:spacer width = "20px"/>
+	<p:column>
+	 <p:commandButton value="New" icon="pi pi-plus" actionListener="#{crudView.openNew}"
+                    oncomplete="PF('manageProductDialog').show()"
+                    styleClass="ui-button-success" style="margin-right: .5rem"/>
+	</p:column>
+	
+	
+	
+</h:form>
+	<h:form>
+		<p:panelGrid columns="1"
+			style="margin-left : 250px ; margin-right: 25px; margin-top : 5%">
+
+			<p:column>
+				<p:dataTable id="table" widgetVar="dtHprov"
+					selection ="#{havaleProvizyonBean.selectedHProv}"
+					var="havaleProvizyonBean" value="#{havaleProvizyonBean.HProvList}"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					paginator="true" rows="10" styleClass="mt-2" rowKey="#{havaleProvizyonBean.havaleProvizyonId}" emptyMessage ="Bir Kayıt Bulunamadı.">
+
+					<f:facet name="header">
+						<div class="products-table-header">
+							<span style="font-weight: bold">Fon Listesi</span> <span
+								style="margin-left: 70%"
+								class="filter-container ui-input-icon-left"> <i
+								class="pi pi-search"></i> <p:inputText id="globalFilter"
+									onkeyup="PF('dtHprov').filter()" placeholder="Portföy No" />
+							</span>
+
+						</div>
+					</f:facet>
+					<p:column selectionMode="single" style="width:16px;text-align:center"/>
+					<p:column headerText="Portföy No"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.musteri_portfoyNo.portfoyNo}"
+						filterBy="#{havaleProvizyonBean.musteri_portfoyNo.portfoyNo}"
+						styleClass="modeColumnFilter">
+						<h:outputText
+							value="#{havaleProvizyonBean.musteri_portfoyNo.portfoyNo}" />
+					</p:column>
+
+					<p:column headerText="İşlem Tarihi"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.tarih}"
+						>
+
+						<h:outputText value="#{havaleProvizyonBean.tarih}" />
+					</p:column>
+
+					<p:column headerText="İşlem Tipi"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.islemTipi}"
+						>
+
+						<h:outputText value="#{havaleProvizyonBean.islemTipi}" />
+					</p:column>
+
+					<p:column headerText="İşlem Tutarı"
+						style="background : #484849 !important"
+						sortBy="#{havaleProvizyonBean.islemTutari}"
+						>
+						<h:outputText value="#{havaleProvizyonBean.islemTutari}" />
+					</p:column>
+					
+					<p:column exportable="false" style="background : #484849 !important ; width: 100px">
+						<p:commandButton class="ui-button-warning rounded-button" value="Sil"
+							icon="pi pi-trash" 
+							oncomplete="PF('deleteProductDialog').show()">
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:column>
+		</p:panelGrid>
+		</h:form>
+		
+        <p:confirmDialog showEffect="slide" hideEffect="explode" widgetVar="deleteProductDialog" width="300"
+            message="İşlemi İptal Et?" header="Onayla" severity="warn">
+            <p:commandButton value="Evet" icon="pi pi-check" actionListener="#{havaleProvizyonBean.deleteHavaleProvizyon}"
+                oncomplete="PF('deleteProductDialog').hide()"  styleClass= "onay"/>
+            <p:commandButton value="Hayır" type="button" styleClass="red" icon="pi pi-times"
+                onclick="PF('deleteProductDialog').hide()" />
+        </p:confirmDialog>
+        
+</h:body>
+</html>
